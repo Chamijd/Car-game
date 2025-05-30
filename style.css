@@ -1,0 +1,136 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 100%;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(to bottom, #000, #111);
+  color: cyan;
+  overflow: hidden;
+}
+
+#startPage, #gameOverPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+#startPage input {
+  padding: 10px;
+  font-size: 16px;
+  margin: 10px;
+  border-radius: 10px;
+  border: none;
+}
+
+#startPage button, .controls button, #menu button, #gameOverPage button {
+  background: cyan;
+  color: black;
+  padding: 10px 20px;
+  margin: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 0 10px cyan;
+}
+
+#gamePage {
+  display: none;
+  flex-direction: column;
+  height: 100vh;
+}
+
+#topBar {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background: #000;
+  font-size: 16px;
+}
+
+#hamburger {
+  cursor: pointer;
+  font-size: 20px;
+}
+
+#menu {
+  display: none;
+  flex-direction: column;
+  background: #111;
+  padding: 10px;
+}
+
+#gameContainer {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  background: #222;
+  border: 4px solid cyan;
+  border-radius: 10px;
+  height: 500px;
+  overflow: hidden;
+}
+
+#car {
+  position: absolute;
+  width: 50px;
+  height: 70px;
+  font-size: 40px;
+  text-align: center;
+  line-height: 70px;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.enemy {
+  position: absolute;
+  width: 50px;
+  height: 70px;
+  font-size: 35px;
+  text-align: center;
+  line-height: 70px;
+  top: -80px;
+}
+
+.road-line {
+  width: 10px;
+  height: 50px;
+  background: white;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: moveLine 1s linear infinite;
+}
+
+@keyframes moveLine {
+  0% { top: -50px; }
+  100% { top: 100%; }
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+
+#countdownOverlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 60px;
+  color: white;
+  z-index: 10;
+}
