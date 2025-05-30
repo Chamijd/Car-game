@@ -8,7 +8,7 @@ body, html {
   overflow: hidden;
 }
 
-.screen {
+.screen, .full-screen {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -17,7 +17,7 @@ body, html {
   text-align: center;
 }
 
-.screen.hidden {
+.screen.hidden, .full-screen.hidden {
   display: none;
 }
 
@@ -107,4 +107,18 @@ button:hover {
 #leaderboardList {
   list-style: none;
   padding: 0;
+}
+
+.full-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.95);
+  z-index: 10;
+}
+
+.game-over-box {
+  text-align: center;
 }
