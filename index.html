@@ -1,51 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>CHMA Car Dodge Game</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- Game Page -->
-  <div id="gamePage">
-    <div id="topBar">
-      <div id="hamburger" onclick="toggleMenu()">☰</div>
-      <div id="score">Score: 0</div>
-      <div id="playerDisplay">Player: Guest</div>
-    </div>
+  <!-- Login Screen -->
+  <div id="loginScreen" class="screen">
+    <h1>🚗 Welcome to CHMA Game</h1>
+    <input type="text" id="playerName" placeholder="Enter your name" required />
+    <button onclick="startLogin()">Start</button>
+  </div>
 
-    <div id="menu" style="display:none;">
-      <button onclick="restartGame()">🔄 Restart</button>
-      <button onclick="pauseGame()">⏸️ Pause</button>
-      <button onclick="resumeGame()">▶️ Resume</button>
-      <button onclick="goToStart()">🏠 Main Menu</button>
+  <!-- Start Page -->
+  <div id="startScreen" class="screen hidden">
+    <h2>Hi <span id="nameDisplay"></span>! Get ready!</h2>
+    <h1 id="countdown">3</h1>
+  </div>
+
+  <!-- Game UI -->
+  <div id="gameUI" class="hidden">
+    <div class="top-bar">
+      <div id="score">Score: 0</div>
+      <button id="menuToggle">☰</button>
     </div>
 
     <div id="gameContainer">
       <div id="car">🚔</div>
-      <div id="countdownOverlay" style="display:none;">
-        <span id="countdownText">3</span>
-      </div>
     </div>
 
     <div class="controls">
       <button onclick="moveLeft()">⬅️</button>
-      <button onclick="fly()">✈️ Fly</button>
       <button onclick="moveRight()">➡️</button>
+      <button onclick="activateFly()">✈️ Fly</button>
+    </div>
+
+    <div id="menu" class="menu hidden">
+      <button onclick="pauseGame()">⏸ Pause</button>
+      <button onclick="resumeGame()">▶️ Resume</button>
+      <button onclick="restartGame()">🔄 Restart</button>
     </div>
   </div>
 
-  <!-- Game Over Page -->
-  <div id="gameOverPage" style="display:none;">
-    <h2>💥 Game Over!</h2>
-    <p id="finalScoreText"></p>
-    <button onclick="restartGame()">🔁 Play Again</button>
+  <!-- Game Over -->
+  <div id="gameOverScreen" class="screen hidden">
+    <h1>💥 Game Over!</h1>
+    <p>Your Score: <span id="finalScore"></span></p>
     <h3>🏆 Leaderboard</h3>
     <ul id="leaderboardList"></ul>
+    <button onclick="restartGame(true)">🔁 Play Again</button>
   </div>
 
-  <audio id="bgMusic" src="music.mp3" loop autoplay></audio>
+  <!-- Background Music -->
+  <audio id="bgMusic" loop>
+    <source src="bgmusic.mp3" type="audio/mpeg">
+  </audio>
+
   <script src="script.js"></script>
 </body>
 </html>
