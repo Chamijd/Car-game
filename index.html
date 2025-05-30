@@ -6,13 +6,9 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div id="startPage">
-    <h1>🚗 CHMA Car Dodge Game</h1>
-    <!-- Removed name input -->
-    <button onclick="startCountdown()">Start Game</button>
-  </div>
 
-  <div id="gamePage" style="display:none;">
+  <!-- Game Page -->
+  <div id="gamePage">
     <div id="topBar">
       <div id="hamburger" onclick="toggleMenu()">☰</div>
       <div id="score">Score: 0</div>
@@ -40,6 +36,7 @@
     </div>
   </div>
 
+  <!-- Game Over Page -->
   <div id="gameOverPage" style="display:none;">
     <h2>💥 Game Over!</h2>
     <p id="finalScoreText"></p>
@@ -48,7 +45,7 @@
     <ul id="leaderboardList"></ul>
   </div>
 
-  <audio id="bgMusic" src="music.mp3" loop></audio>
+  <audio id="bgMusic" src="music.mp3" loop autoplay></audio>
   <script src="script.js"></script>
 </body>
 </html>
