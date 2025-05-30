@@ -10,11 +10,11 @@
   <!-- Login Screen -->
   <div id="loginScreen" class="screen">
     <h1>🚗 Welcome to CHMA Game</h1>
-    <input type="text" id="playerName" placeholder="Enter your name" required />
+    <input type="text" id="playerName" placeholder="Enter your name" />
     <button onclick="startLogin()">Start</button>
   </div>
 
-  <!-- Start Page -->
+  <!-- Countdown Screen -->
   <div id="startScreen" class="screen hidden">
     <h2>Hi <span id="nameDisplay"></span>! Get ready!</h2>
     <h1 id="countdown">3</h1>
@@ -44,13 +44,15 @@
     </div>
   </div>
 
-  <!-- Game Over -->
-  <div id="gameOverScreen" class="screen hidden">
-    <h1>💥 Game Over!</h1>
-    <p>Your Score: <span id="finalScore"></span></p>
-    <h3>🏆 Leaderboard</h3>
-    <ul id="leaderboardList"></ul>
-    <button onclick="restartGame(true)">🔁 Play Again</button>
+  <!-- Full Game Over Screen -->
+  <div id="gameOverScreen" class="full-screen hidden">
+    <div class="game-over-box">
+      <h1>💥 Game Over!</h1>
+      <p>Your Score: <span id="finalScore"></span></p>
+      <h3>🏆 Leaderboard</h3>
+      <ul id="leaderboardList"></ul>
+      <button onclick="restartGame(true)">🔁 Play Again</button>
+    </div>
   </div>
 
   <!-- Background Music -->
