@@ -1,132 +1,162 @@
-const { makeid } = require('./gen-id');
-const express = require('express');
-const QRCode = require('qrcode');
-const fs = require('fs');
-let router = express.Router();
-const pino = require("pino");
-const {
-    default: makeWASocket,
-    useMultiFileAuthState,
-    delay,
-    makeCacheableSignalKeyStore,
-    Browsers,
-    jidNormalizedUser
-} = require("@whiskeysockets/baileys");
-const { upload } = require('./mega');
-function removeFile(FilePath) {
-    if (!fs.existsSync(FilePath)) return false;
-    fs.rmSync(FilePath, { recursive: true, force: true });
+let score = 0;
+let gameRunning = false;
+let playerName = '';
+let speed = 3000;
+let flyTimeout;
+let enemyInterval;
+let bgMusic = document.getElementById('bgMusic');
+
+const car = document.getElementById('car');
+const gameContainer = document.getElementById('gameContainer');
+const scoreDisplay = document.getElementById('score');
+const finalScore = document.getElementById('finalScore');
+const leaderboardList = document.getElementById('leaderboardList');
+
+document.getElementById('menuToggle').onclick = () => {
+  document.getElementById('menu').classList.toggle('hidden');
+};
+
+function startLogin() {
+  const input = document.getElementById('playerName').value.trim();
+  if (input) {
+    playerName = input;
+    document.getElementById('loginScreen').classList.add('hidden');
+    document.getElementById('startScreen').classList.remove('hidden');
+    document.getElementById('nameDisplay').textContent = playerName;
+    startCountdown();
+  }
 }
-router.get('/', async (req, res) => {
-    const id = makeid();
- //   let num = req.query.number;
-    async function GIFTED_MD_PAIR_CODE() {
-        const {
-            state,
-            saveCreds
-        } = await useMultiFileAuthState('./temp/' + id);
-        try {
-var items = ["Safari"];
-function selectRandomItem(array) {
-  var randomIndex = Math.floor(Math.random() * array.length);
-  return array[randomIndex];
-}
-var randomItem = selectRandomItem(items);
-            
-            let sock = makeWASocket({
-                	
-				auth: state,
-				printQRInTerminal: false,
-				logger: pino({
-					level: "silent"
-				}),
-				browser: Browsers.macOS("Desktop"),
-			});
-            
-            sock.ev.on('creds.update', saveCreds);
-            sock.ev.on("connection.update", async (s) => {
-                const {
-                    connection,
-                    lastDisconnect,
-                    qr
-                } = s;
-              if (qr) await res.end(await QRCode.toBuffer(qr));
-                if (connection == "open") {
-                    await delay(5000);
-                    let data = fs.readFileSync(__dirname + `/temp/${id}/creds.json`);
-                    let rf = __dirname + `/temp/${id}/creds.json`;
-                    function generateRandomText() {
-                        const prefix = "3EB";
-                        const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-                        let randomText = prefix;
-                        for (let i = prefix.length; i < 22; i++) {
-                            const randomIndex = Math.floor(Math.random() * characters.length);
-                            randomText += characters.charAt(randomIndex);
-                        }
-                        return randomText;
-                    }
-                    const randomText = generateRandomText();
-                    try {
-                        const { upload } = require('./mega');
-                        const mega_url = await upload(fs.createReadStream(rf), `${sock.user.id}.json`);
-                        const string_session = mega_url.replace('https://mega.nz/file/', '');
-                        let md = "CHAMA-MD=" + string_session;
-                        let code = await sock.sendMessage(sock.user.id, { text: md });
-                        let desc = `> ශෙයා කරන්න එපා \n\n> ᴅᴏ ɴᴏᴛ ꜱʜᴇʀᴇ ᴛʜɪꜱ \n\n> இதை யாரிடமும் பகிர வேண்டாம்\n\n> ʀɪᴘᴏ https://github.com\n\nwhats app channel:-https://whatsapp.com/channel/0029Vb9WF4nJJhzeUCFS6M0u\n\n> ᴏᴡɴᴇʀ 94783314361\n\n\n> ᴘᴏᴡᴇʀᴅ ʙʏ chamindu- ᴍᴅ`;
-                        await sock.sendMessage(sock.user.id, {
-text: desc,
-contextInfo: {
-externalAdReply: {
-title: "ᴄʜᴀᴍᴀ-ᴍᴅ",
-thumbnailUrl: "https://i.ibb.co/pjqsbyyW/7755.jpg",
-sourceUrl: "https://whatsapp.com/channel/0029Vb10Jv560eBfnX6Jaa3Y",
-mediaType: 1,
-renderLargerThumbnail: true
-}  
-}
-},
-{quoted:code })
-                    } catch (e) {
-                            let ddd = sock.sendMessage(sock.user.id, { text: e });
-                            let desc = `> ශෙයා කරන්න එපා \n\n> ᴅᴏ ɴᴏᴛ ꜱʜᴇʀᴇ ᴛʜɪꜱ \n\n> இதை யாரிடமும் பகிர வேண்டாம்\n\n> ʀɪᴘᴏ https://github.com\n\nwhats app channel:-https://whatsapp.com/channel/0029Vb9WF4nJJhzeUCFS6M0u\n\n> ᴏᴡɴᴇʀ 94783314361\n\n\n> ᴘᴏᴡᴇʀᴅ ʙʏ chamindu- ᴍᴅ`;
-                            await sock.sendMessage(sock.user.id, {
-text: desc,
-contextInfo: {
-externalAdReply: {
-title: "ᴄʜᴀᴍᴀ-ᴍᴅ",
-thumbnailUrl: "https://i.ibb.co/pjqsbyyW/7755.jpg",
-sourceUrl: "https://whatsapp.com/channel/0029Vb10Jv560eBfnX6Jaa3Y",
-mediaType: 2,
-renderLargerThumbnail: true,
-showAdAttribution: true
-}  
-}
-},
-{quoted:ddd })
-                    }
-                    await delay(10);
-                    await sock.ws.close();
-                    await removeFile('./temp/' + id);
-                    console.log(`👤 ${sock.user.id} 𝗖𝗼𝗻𝗻𝗲𝗰𝘁𝗲𝗱 ✅ 𝗥𝗲𝘀𝘁𝗮𝗿𝘁𝗶𝗻𝗴 𝗽𝗿𝗼𝗰𝗲𝘀𝘀...`);
-                    await delay(10);
-                    process.exit();
-                } else if (connection === "close" && lastDisconnect && lastDisconnect.error && lastDisconnect.error.output.statusCode != 401) {
-                    await delay(10);
-                    GIFTED_MD_PAIR_CODE();
-                }
-            });
-        } catch (err) {
-            console.log("service restated");
-            await removeFile('./temp/' + id);
-            if (!res.headersSent) {
-                await res.send({ code: "❗ Service Unavailable" });
-            }
-        }
+
+function startCountdown() {
+  let count = 3;
+  const cd = document.getElementById('countdown');
+  const interval = setInterval(() => {
+    cd.textContent = count;
+    if (count-- === 0) {
+      clearInterval(interval);
+      document.getElementById('startScreen').classList.add('hidden');
+      document.getElementById('gameUI').classList.remove('hidden');
+      startGame();
     }
-    await GIFTED_MD_PAIR_CODE();
+  }, 1000);
+}
+
+function startGame() {
+  score = 0;
+  gameRunning = true;
+  updateScore();
+  bgMusic.play();
+  enemyInterval = setInterval(createEnemy, 1200);
+}
+
+function pauseGame() {
+  gameRunning = false;
+  clearInterval(enemyInterval);
+  bgMusic.pause();
+}
+
+function resumeGame() {
+  gameRunning = true;
+  bgMusic.play();
+  enemyInterval = setInterval(createEnemy, 1200);
+}
+
+function restartGame(fromOver = false) {
+  clearInterval(enemyInterval);
+  document.querySelectorAll('.enemy').forEach(e => e.remove());
+  score = 0;
+  speed = 3000;
+  updateScore();
+  car.style.left = "135px";
+  document.getElementById('gameOverScreen').classList.add('hidden');
+  if (fromOver) document.getElementById('gameUI').classList.remove('hidden');
+  gameRunning = true;
+  bgMusic.play();
+  enemyInterval = setInterval(createEnemy, 1200);
+}
+
+function updateScore() {
+  scoreDisplay.textContent = "Score: " + score;
+}
+
+function moveLeft() {
+  let left = car.offsetLeft;
+  if (left > 10) car.style.left = (left - 30) + "px";
+}
+
+function moveRight() {
+  let left = car.offsetLeft;
+  if (left < gameContainer.clientWidth - 50) car.style.left = (left + 30) + "px";
+}
+
+function activateFly() {
+  if (flyTimeout) return;
+  car.textContent = "✈️";
+  car.style.transform = "translateY(-100px)";
+  flyTimeout = setTimeout(() => {
+    car.textContent = "🚔";
+    car.style.transform = "translateY(0)";
+    flyTimeout = null;
+  }, 2000);
+}
+
+function createEnemy() {
+  if (!gameRunning) return;
+  const enemy = document.createElement('div');
+  enemy.classList.add('enemy');
+  enemy.style.left = Math.floor(Math.random() * (gameContainer.offsetWidth - 36)) + 'px';
+  enemy.textContent = '🚘';
+  enemy.style.animationDuration = `${speed / 1000}s`;
+  gameContainer.appendChild(enemy);
+
+  const checkCollision = setInterval(() => {
+    if (!gameRunning || !enemy.parentElement) return clearInterval(checkCollision);
+
+    let enemyTop = enemy.offsetTop;
+    let carLeft = car.offsetLeft;
+    let enemyLeft = enemy.offsetLeft;
+
+    if (
+      enemyTop > gameContainer.offsetHeight - 100 &&
+      enemyLeft < carLeft + 36 &&
+      enemyLeft + 36 > carLeft
+    ) {
+      if (!flyTimeout) gameOver();
+      clearInterval(checkCollision);
+    }
+
+    if (enemyTop > gameContainer.offsetHeight) {
+      enemy.remove();
+      score++;
+      updateScore();
+      if (score % 10 === 0 && speed > 1000) speed -= 200;
+    }
+  }, 30);
+}
+
+function gameOver() {
+  gameRunning = false;
+  bgMusic.pause();
+  document.getElementById('gameUI').classList.add('hidden');
+  document.getElementById('gameOverScreen').classList.remove('hidden');
+  finalScore.textContent = score;
+  saveLeaderboard();
+}
+
+function saveLeaderboard() {
+  let data = JSON.parse(localStorage.getItem('leaderboard')) || [];
+  data.push({ name: playerName, score });
+  data.sort((a, b) => b.score - a.score);
+  localStorage.setItem('leaderboard', JSON.stringify(data.slice(0, 5)));
+
+  leaderboardList.innerHTML = "";
+  data.slice(0, 5).forEach((entry, i) => {
+    leaderboardList.innerHTML += `<li>${i + 1}. ${entry.name} - ${entry.score}</li>`;
+  });
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowLeft') moveLeft();
+  if (e.key === 'ArrowRight') moveRight();
+  if (e.key === 'g') activateFly();
 });
-setInterval(() => {
-    console.log("☘️ 𝗥𝗲𝘀𝘁𝗮𝗿𝘁𝗶𝗻𝗴 𝗽𝗿𝗼𝗰𝗲𝘀𝘀...");
-    process.exit();
-}, 180000); //30min
-module.exports = router;
