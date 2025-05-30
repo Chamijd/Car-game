@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CHMA Car Dodge Game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="startPage">
+    <h1>🚗 CHMA Car Dodge Game</h1>
+    <input type="text" id="playerName" placeholder="Enter your name" />
+    <button onclick="startCountdown()">Start Game</button>
+  </div>
+
+  <div id="gamePage">
+    <div id="topBar">
+      <div id="hamburger" onclick="toggleMenu()">☰</div>
+      <div id="score">Score: 0</div>
+      <div id="playerDisplay">Player: </div>
+    </div>
+
+    <div id="menu">
+      <button onclick="restartGame()">🔄 Restart</button>
+      <button onclick="pauseGame()">⏸️ Pause</button>
+      <button onclick="resumeGame()">▶️ Resume</button>
+      <button onclick="goToStart()">🏠 Main Menu</button>
+    </div>
+
+    <div id="gameContainer">
+      <div id="car">🚔</div>
+      <div id="countdownOverlay"><span id="countdownText">3</span></div>
+    </div>
+
+    <div class="controls">
+      <button onclick="moveLeft()">⬅️</button>
+      <button onclick="fly()">✈️ Fly</button>
+      <button onclick="moveRight()">➡️</button>
+    </div>
+  </div>
+
+  <div id="gameOverPage">
+    <h2>💥 Game Over!</h2>
+    <p id="finalScoreText"></p>
+    <button onclick="restartGame()">🔁 Play Again</button>
+    <h3>🏆 Leaderboard</h3>
+    <ul id="leaderboardList"></ul>
+  </div>
+
+  <audio id="bgMusic" src="music.mp3" loop autoplay></audio>
+  <script src="script.js"></script>
+</body>
+</html>
