@@ -46,7 +46,7 @@ function startGame() {
   gameRunning = true;
   updateScore();
   bgMusic.play();
-  enemyInterval = setInterval(createEnemy, 1200);
+  enemyInterval = setInterval(createEnemy, 1000);
 }
 
 function pauseGame() {
@@ -58,7 +58,7 @@ function pauseGame() {
 function resumeGame() {
   gameRunning = true;
   bgMusic.play();
-  enemyInterval = setInterval(createEnemy, 1200);
+  enemyInterval = setInterval(createEnemy, 1000);
 }
 
 function restartGame(fromOver = false) {
@@ -72,7 +72,7 @@ function restartGame(fromOver = false) {
   if (fromOver) document.getElementById('gameUI').classList.remove('hidden');
   gameRunning = true;
   bgMusic.play();
-  enemyInterval = setInterval(createEnemy, 1200);
+  enemyInterval = setInterval(createEnemy, 1000);
 }
 
 function updateScore() {
@@ -158,5 +158,5 @@ function saveLeaderboard() {
 document.addEventListener('keydown', e => {
   if (e.key === 'ArrowLeft') moveLeft();
   if (e.key === 'ArrowRight') moveRight();
-  if (e.key === 'g') activateFly();
+  if (e.key.toLowerCase() === 'g') activateFly();
 });
