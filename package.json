@@ -1,0 +1,23 @@
+{
+  "name": "chma-car-dodge-game",
+  "version": "1.0.0",
+  "description": "CHMA Car Dodge Game with leaderboard, fly mode, levels and background music.",
+  "main": "index.html",
+  "scripts": {
+    "start": "live-server"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  },
+  "keywords": [
+    "game",
+    "car",
+    "dodge",
+    "fly",
+    "leaderboard",
+    "javascript"
+  ],
+  "author": "CHMA MD",
+  "license": "MIT"
+}
